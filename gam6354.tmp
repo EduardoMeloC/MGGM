@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bob3ny2itd4a4"]
+
+[ext_resource type="Texture2D" uid="uid://dxtn5iou2mc2y" path="res://sprites/player.png" id="1_awkn8"]
+[ext_resource type="Script" path="res://BulletController.gd" id="1_w3ob7"]
+[ext_resource type="Script" path="res://player.gd" id="1_wp4kk"]
+[ext_resource type="PackedScene" uid="uid://f5hqiakdi1eq" path="res://linear_bullet.tscn" id="2_sqw3w"]
+
+[node name="Game" type="Node2D"]
+
+[node name="BulletController" type="Node2D" parent="."]
+script = ExtResource("1_w3ob7")
+
+[node name="LinearBullet" parent="BulletController" instance=ExtResource("2_sqw3w")]
+direction = Vector2(1, 1)
+speed = 512.0
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("1_wp4kk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(924, 456)
+texture = ExtResource("1_awkn8")
