@@ -17,3 +17,12 @@ func _process(delta):
 	position = next_pos
 		
 		
+
+func _on_bullet_hit():
+	position = Vector2.ZERO
+	print("die")
+
+func _on_hitbox_enter(area : Area2D):
+	var game_object = area.get_parent()
+	if game_object.is_in_group("Bullet"):
+		_on_bullet_hit()

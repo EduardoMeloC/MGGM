@@ -28,6 +28,13 @@ window/size/viewport_height=1080
 
 enabled=PackedStringArray("res://addons/save_system/plugin.cfg")
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Bullet"
+2d_physics/layer_3="Powerup"
+2d_physics/layer_4="Enemy"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

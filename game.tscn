@@ -1,23 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=4 format=3 uid="uid://bob3ny2itd4a4"]
 
-[ext_resource type="Texture2D" uid="uid://dxtn5iou2mc2y" path="res://sprites/player.png" id="1_awkn8"]
+[ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://BulletController.gd" id="1_w3ob7"]
-[ext_resource type="Script" path="res://player.gd" id="1_wp4kk"]
-[ext_resource type="PackedScene" uid="uid://f5hqiakdi1eq" path="res://linear_bullet.tscn" id="2_sqw3w"]
+[ext_resource type="Texture2D" uid="uid://d33feslf2l7ve" path="res://sprites/magical_girl.png" id="3_87wf5"]
 
 [node name="Game" type="Node2D"]
 
+[node name="Player" parent="." instance=ExtResource("1_45f4m")]
+
 [node name="BulletController" type="Node2D" parent="."]
+position = Vector2(1021, 215)
 script = ExtResource("1_w3ob7")
+_shoot_radius = 24
+_bullet_count = 6
+_debug_radius = 275
 
-[node name="LinearBullet" parent="BulletController" instance=ExtResource("2_sqw3w")]
-direction = Vector2(1, 1)
-speed = 512.0
-max_distance = 2048.0
-
-[node name="Player" type="Node2D" parent="."]
-script = ExtResource("1_wp4kk")
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(924, 456)
-texture = ExtResource("1_awkn8")
+[node name="Sprite2D" type="Sprite2D" parent="BulletController"]
+texture = ExtResource("3_87wf5")
