@@ -2,6 +2,9 @@
 extends Node2D
 
 const LinearBullet = preload("res://linear_bullet.tscn")
+var animations = ["Float", "Attack", "Sugar Rush"]
+var counter := 0
+
 
 @onready var _player = get_tree().get_nodes_in_group("Player")[0]
 
@@ -41,8 +44,14 @@ func spawn_bullets_radial():
 		bullet.look_at(dir)
 		self.add_child(bullet)
 
+func spawn_constellation():
+	
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if Input.is_key_pressed(KEY_SPACE) and just_pressed:
 		spawn_bullets_radial()
+		
+	if Input.is_key_pressed(KEY_PAGEDOWN) and just_pressed:
+		get_node("AnimationPlayer").play(animations[counter])
+		counter += 1
