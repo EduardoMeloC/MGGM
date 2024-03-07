@@ -1,12 +1,8 @@
 @tool
 extends Node2D
 
-const LinearBullet = preload("res://linear_bullet.tscn")
 var animations = ["Float", "Attack", "Sugar Rush"]
 var counter := 0
-
-
-@onready var _player = get_tree().get_nodes_in_group("Player")[0]
 
 @export_range(0, 360) var _shoot_radius : int = 60:
 	set(new_value):
@@ -23,7 +19,8 @@ var counter := 0
 		_debug_radius = new_value
 		queue_redraw()
 
-var player_direction := Vector2.ONE
+@onready var _player = get_tree().get_nodes_in_group("Player")[0]
+@onready var _pool = $BulletPool
 		
 func _draw():
 	if Engine.is_editor_hint():
@@ -34,18 +31,20 @@ func _draw():
 			draw_circle(dir*_debug_radius, 3, Color.WHITE)
 
 func spawn_bullets_radial():
-	player_direction = (_player.position - self.position).normalized() 
-	queue_redraw()
+	var player_direction = (_player.position - self.position).normalized() 
 	var angle_step = deg_to_rad(_shoot_radius)/_bullet_count
 	for i in range(-_bullet_count/2, _bullet_count/2+1):
 		var dir = player_direction.rotated(i*angle_step).normalized()
-		var bullet = LinearBullet.instantiate()
-		bullet.direction = dir
-		bullet.look_at(dir)
-		self.add_child(bullet)
-
-func spawn_constellation():
-	
+		var bullet : Bullet = _pool.get_object().initialize(self.position, dir)
+		
+func spawn_bullets_faster():	
+	var player_direction = (_player.position - self.position).normalized() 
+	var angle_step = deg_to_rad(_shoot_radius)/_bullet_count
+	for i in range(-_bullet_count/2, _bullet_count/2+1):
+		var dir = player_direction.rotated(i*angle_step).normalized()
+		var bullet : Bullet = _pool.get_object().initialize(self.position, dir)
+		bullet.set_direction_over_time(func(direction : Vector2, delta : float):
+			return direction * 1.01)
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
@@ -55,3 +54,5 @@ func _input(event):
 	if Input.is_key_pressed(KEY_PAGEDOWN) and just_pressed:
 		get_node("AnimationPlayer").play(animations[counter])
 		counter += 1
+	if Input.is_key_pressed(KEY_F1) and just_pressed:
+		spawn_bullets_faster()

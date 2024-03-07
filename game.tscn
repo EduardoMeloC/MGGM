@@ -1,8 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=11 format=3 uid="uid://bob3ny2itd4a4"]
 
 [ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
-[ext_resource type="Script" path="res://BulletController.gd" id="1_w3ob7"]
+[ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
+[ext_resource type="Script" path="res://bullet_pool.gd" id="3_7wcxh"]
 [ext_resource type="Texture2D" uid="uid://d33feslf2l7ve" path="res://sprites/magical_girl.png" id="3_87wf5"]
+
+[sub_resource type="Animation" id="Animation_y0vr4"]
+resource_name = "Attack"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 30), Vector2(0, 0), Vector2(0, -30), Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_yq3au"]
 resource_name = "Float"
@@ -36,23 +54,6 @@ tracks/0/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_y0vr4"]
-resource_name = "Attack"
-length = 1.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 30), Vector2(0, 0), Vector2(0, -30), Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_cvhqi"]
 resource_name = "Sugar Rush"
 length = 0.4
@@ -78,16 +79,22 @@ _data = {
 "Sugar Rush": SubResource("Animation_cvhqi")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21otb"]
+size = Vector2(338, 20)
+
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_45f4m")]
 
 [node name="BulletController" type="Node2D" parent="."]
 position = Vector2(1021, 215)
-script = ExtResource("1_w3ob7")
-_shoot_radius = 24
-_bullet_count = 6
-_debug_radius = 275
+script = ExtResource("2_4gnp3")
+_shoot_radius = 64
+_bullet_count = 64
+_debug_radius = 100
+
+[node name="BulletPool" type="Node" parent="BulletController"]
+script = ExtResource("3_7wcxh")
 
 [node name="Sprite2D" type="Sprite2D" parent="BulletController"]
 texture = ExtResource("3_87wf5")
@@ -97,3 +104,11 @@ autoplay = "Float"
 libraries = {
 "": SubResource("AnimationLibrary_wj2xq")
 }
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1017, 656)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 1048575
+visibility_layer = 1048575
+shape = SubResource("RectangleShape2D_21otb")
