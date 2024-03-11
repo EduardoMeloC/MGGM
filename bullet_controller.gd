@@ -40,8 +40,27 @@ func spawn_bullets_faster():
 	for i in range(-_bullet_count/2, _bullet_count/2+1):
 		var dir = player_direction.rotated(i*angle_step).normalized()
 		var bullet : Bullet = _pool.get_object().initialize(self.position, dir)
-		bullet.set_direction_over_time(func(direction : Vector2, delta : float):
-			return direction * 1.01)
+		bullet.set_calculate_next_step(func(delta : float):
+			return bullet.direction * 1.01)
+			
+func spawn_bullet_sine():
+	var player_direction = (_player.position - self.position).normalized() 
+	var bullet : Bullet = _pool.get_object().initialize(self.position, player_direction)
+	bullet.set_calculate_next_step(func(delta : float):
+		var speed = 400
+		var dir = player_direction.rotated(cos(bullet.time_alive*2) * deg_to_rad(45))
+		bullet.direction = dir
+		var next_step = dir * speed * delta
+		return next_step
+	)
+	bullet = _pool.get_object().initialize(self.position, player_direction)
+	bullet.set_calculate_next_step(func(delta : float):
+		var speed = 400
+		var dir = player_direction.rotated(cos(bullet.time_alive*2+PI) * deg_to_rad(45))
+		bullet.direction = dir
+		var next_step = dir * speed * delta
+		return next_step
+	)
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
@@ -49,3 +68,5 @@ func _input(event):
 		spawn_bullets_radial()
 	if Input.is_key_pressed(KEY_F1) and just_pressed:
 		spawn_bullets_faster()
+	if Input.is_key_pressed(KEY_F2) and just_pressed:
+		spawn_bullet_sine()

@@ -1,34 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=5 format=3 uid="uid://bob3ny2itd4a4"]
 
 [ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
 [ext_resource type="Script" path="res://bullet_pool.gd" id="3_7wcxh"]
 [ext_resource type="Texture2D" uid="uid://d33feslf2l7ve" path="res://sprites/magical_girl.png" id="3_87wf5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21otb"]
-size = Vector2(338, 20)
-
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_45f4m")]
 
 [node name="BulletController" type="Node2D" parent="."]
-position = Vector2(1021, 215)
+position = Vector2(257, 477)
 script = ExtResource("2_4gnp3")
-_shoot_radius = 64
-_bullet_count = 64
-_debug_radius = 100
+_shoot_radius = 349
+_bullet_count = 50
+_debug_radius = 420
 
 [node name="BulletPool" type="Node" parent="BulletController"]
 script = ExtResource("3_7wcxh")
 
 [node name="Sprite2D" type="Sprite2D" parent="BulletController"]
 texture = ExtResource("3_87wf5")
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1017, 656)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-light_mask = 1048575
-visibility_layer = 1048575
-shape = SubResource("RectangleShape2D_21otb")
