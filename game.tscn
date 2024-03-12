@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=23 format=3 uid="uid://bob3ny2itd4a4"]
 
 [ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d33feslf2l7ve" path="res://sprites/magical_girl.png" id="3_87wf5"]
 [ext_resource type="Texture2D" uid="uid://b5bnlhv0j618" path="res://sprites/background/Fundo Fundo.png" id="6_4ycpr"]
 [ext_resource type="Shader" path="res://shaders/move-clouds.gdshader" id="6_o3lie"]
+[ext_resource type="Script" path="res://vilain_bullet_controller.gd" id="6_r77a3"]
 [ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="7_ii2gt"]
 [ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="8_r1lod"]
 [ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="9_yribo"]
@@ -188,6 +189,7 @@ libraries = {
 position = Vector2(1620, 400)
 
 [node name="BulletController" type="Node2D" parent="MagicalDemon"]
+script = ExtResource("6_r77a3")
 
 [node name="BulletPool" type="Node" parent="MagicalDemon/BulletController"]
 script = ExtResource("3_7wcxh")
