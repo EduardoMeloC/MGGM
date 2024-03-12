@@ -5,7 +5,8 @@ enum patterns {
 	None,
 	Radial,
 	Faster,
-	Constellation
+	Constellation,
+	Ribbon
 }
 
 @export_range(0, 360) var _shoot_radius : int = 60:
@@ -43,40 +44,54 @@ func _draw():
 			draw_circle(dir*_debug_radius, 3, Color.WHITE)
 
 
-func spawn_bullets_radial():
+func spawn_bullets_radial(bullet_count: int, shoot_radius: int, initial_direction:= Vector2.ZERO):
 	var player_direction = (_player.position - self.global_position).normalized() 
-	var angle_step = deg_to_rad(_shoot_radius)/_bullet_count
-	for i in range(-_bullet_count/2, _bullet_count/2+1):
-		var dir = player_direction.rotated(i*angle_step).normalized()
+	var direction = player_direction if initial_direction == Vector2.ZERO else initial_direction
+	var angle_step = deg_to_rad(shoot_radius)/bullet_count
+	for i in range(-bullet_count/2, bullet_count/2):
+		var dir = direction.rotated(i*angle_step).normalized()
 		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
 
-
-
-func spawn_bullets_faster():
+func spawn_bullets_faster(bullet_count: int, shoot_radius: int):
 	var player_direction = (_player.position - self.global_position).normalized() 
-	var angle_step = deg_to_rad(_shoot_radius)/_bullet_count
-	for i in range(-_bullet_count/2, _bullet_count/2+1):
+	var angle_step = deg_to_rad(shoot_radius)/bullet_count
+	for i in range(-bullet_count/2, bullet_count/2+1):
 		var dir = player_direction.rotated(i*angle_step).normalized()
 		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
-		bullet.set_direction_over_time(func(direction : Vector2, delta : float):
-			return direction * 1.01)
-
-
+		bullet.set_calculate_next_step(func(delta : float):
+			return bullet.direction * 1.1)
+			
+func spawn_bullets_sine(horizontal_speed: float, frequency: float, amplitude: float, speed := 400):
+	var player_direction = (_player.position - self.position).normalized() 
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, player_direction)
+	bullet.set_calculate_next_step(func(delta : float):
+		var dir = Vector2(horizontal_speed, cos(bullet.time_alive*frequency)*amplitude)
+		bullet.direction = dir
+		var next_step = dir * speed * delta
+		return next_step
+	)
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if Input.is_key_pressed(KEY_SPACE) and just_pressed:
 		start_radial()
+	if Input.is_key_pressed(KEY_F1) and just_pressed:
+		spawn_bullets_faster(64, 64)
+	if Input.is_key_pressed(KEY_F2) and just_pressed:
+		spawn_bullets_sine(1, 2, 2)
+		spawn_bullets_sine(1, 2, -2)
 	if Input.is_key_pressed(KEY_0) and just_pressed:
 		start_constellation()
+	if Input.is_key_pressed(KEY_1) and just_pressed:
+		start_ribbon()
 
 #constellation
 func get_vector(angle):
 	theta = angle + alpha
 	return Vector2(cos(theta), sin(theta))
 
-func spawn_constellation():
-	var angle_step = deg_to_rad(_shoot_radius)/_bullet_count
+func spawn_constellation(shoot_radius: int, bullet_count: int):
+	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	var dir = get_vector(theta)
 	var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
 
@@ -91,15 +106,18 @@ func spawn_constellation():
 func start_constellation():
 	pattern_counter = 180
 	_current_pattern = patterns.Constellation
-	spawn_constellation()
+	spawn_constellation(64, 64)
 	_shoot_timer.start(0.1)
 
 func start_radial():
 	_current_pattern = patterns.Radial
 	pattern_counter = 10
-	spawn_bullets_radial()
 	_shoot_timer.start(1.0)
 
+func start_ribbon():
+	_current_pattern = patterns.Ribbon
+	pattern_counter = 60
+	_shoot_timer.start(0.4)
 
 ####attack timer
 #Rola quando o timer termina, ele automaticamente vai recomeçar até que o contador chegue a -1,
@@ -112,13 +130,21 @@ func _on_shoot_timer_timeout():
 		match _current_pattern:
 			patterns.Constellation:
 				if pattern_counter%45 == 0:
-					spawn_bullets_radial()
-				spawn_constellation()
+					spawn_bullets_radial(64, 64)
+				spawn_constellation(64, 64)
 			patterns.Radial:
-				if pattern_counter%4 == 0:
-					spawn_bullets_faster()
+				spawn_bullets_radial(60, 180)
+			patterns.Ribbon:
+				if pattern_counter % 5 == 0:
+					spawn_bullets_radial(16, 60, Vector2.RIGHT.rotated(deg_to_rad(randi_range(-10, 10))))
+					spawn_bullets_radial(320, 320, Vector2.LEFT)
+					
+					spawn_bullets_sine(1, 2, 2)
+					spawn_bullets_sine(1, 2, -2)
 				else:
-					spawn_bullets_radial()
+					spawn_bullets_sine(1, 2, 2)
+					spawn_bullets_sine(1, 2, -2)
+					
 	else:
 		_shoot_timer.stop()
 		_current_pattern = patterns.None
