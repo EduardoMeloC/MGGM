@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=22 format=3 uid="uid://bob3ny2itd4a4"]
 
 [ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
@@ -11,9 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="8_r1lod"]
 [ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="9_yribo"]
 [ext_resource type="Texture2D" uid="uid://bllp3mgunyjtv" path="res://sprites/background/1 Plano.png" id="10_c76aa"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21otb"]
-size = Vector2(338, 20)
 
 [sub_resource type="Animation" id="Animation_y0vr4"]
 resource_name = "Attack"
@@ -247,6 +244,11 @@ texture_repeat = 2
 material = SubResource("ShaderMaterial_6mjd4")
 texture = ExtResource("10_c76aa")
 centered = false
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_right = 1920.0
+offset_bottom = 1077.0
+color = Color(0, 0, 0, 0.764706)
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Vilao/BulletController/ShootTimer" to="Vilao/BulletController" method="_on_shoot_timer_timeout"]
