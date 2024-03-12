@@ -1,10 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=22 format=3 uid="uid://bob3ny2itd4a4"]
 
 [ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
 [ext_resource type="Script" path="res://magical_girl.gd" id="2_hesb7"]
 [ext_resource type="Script" path="res://bullet_pool.gd" id="3_7wcxh"]
 [ext_resource type="Texture2D" uid="uid://d33feslf2l7ve" path="res://sprites/magical_girl.png" id="3_87wf5"]
+[ext_resource type="Texture2D" uid="uid://b5bnlhv0j618" path="res://sprites/background/Fundo Fundo.png" id="6_4ycpr"]
+[ext_resource type="Shader" path="res://shaders/move-clouds.gdshader" id="6_o3lie"]
+[ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="7_ii2gt"]
+[ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="8_r1lod"]
+[ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="9_yribo"]
+[ext_resource type="Texture2D" uid="uid://bllp3mgunyjtv" path="res://sprites/background/1 Plano.png" id="10_c76aa"]
 
 [sub_resource type="Animation" id="Animation_y0vr4"]
 resource_name = "Attack"
@@ -128,6 +134,26 @@ _data = {
 "Sugar Rush": SubResource("Animation_cvhqi")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6lm57"]
+shader = ExtResource("6_o3lie")
+shader_parameter/move_speed = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu0vn"]
+shader = ExtResource("6_o3lie")
+shader_parameter/move_speed = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wr57m"]
+shader = ExtResource("6_o3lie")
+shader_parameter/move_speed = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6mvom"]
+shader = ExtResource("6_o3lie")
+shader_parameter/move_speed = 0.07
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6mjd4"]
+shader = ExtResource("6_o3lie")
+shader_parameter/move_speed = 0.1
+
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_45f4m")]
@@ -171,6 +197,58 @@ script = ExtResource("3_7wcxh")
 [node name="Sprite2D" type="Sprite2D" parent="Vilao"]
 modulate = Color(1, 0.168627, 1, 1)
 texture = ExtResource("3_87wf5")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="05" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/05"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_6lm57")
+texture = ExtResource("6_4ycpr")
+centered = false
+
+[node name="04" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/04"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_eu0vn")
+texture = ExtResource("7_ii2gt")
+centered = false
+
+[node name="03" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/03"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_wr57m")
+texture = ExtResource("8_r1lod")
+centered = false
+
+[node name="02" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/02"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_6mvom")
+texture = ExtResource("9_yribo")
+centered = false
+
+[node name="01" type="ParallaxLayer" parent="Background"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/01"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_6mjd4")
+texture = ExtResource("10_c76aa")
+centered = false
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_right = 1920.0
+offset_bottom = 1077.0
+color = Color(0, 0, 0, 0.764706)
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Vilao/BulletController/ShootTimer" to="Vilao/BulletController" method="_on_shoot_timer_timeout"]
