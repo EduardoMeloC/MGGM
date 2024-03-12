@@ -50,7 +50,7 @@ func spawn_bullets_radial(bullet_count: int, shoot_radius: int, initial_directio
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	for i in range(-bullet_count/2, bullet_count/2):
 		var dir = direction.rotated(i*angle_step).normalized()
-		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
+		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "red")
 
 func spawn_bullets_faster(bullet_count: int, shoot_radius: int):
 	var player_direction = (_player.position - self.global_position).normalized() 
@@ -93,7 +93,7 @@ func get_vector(angle):
 func spawn_constellation(shoot_radius: int, bullet_count: int):
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	var dir = get_vector(theta)
-	var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "green")
 
 
 ####attack starters

@@ -248,7 +248,7 @@ centered = false
 [node name="ColorRect" type="ColorRect" parent="Background"]
 offset_right = 1920.0
 offset_bottom = 1077.0
-color = Color(0, 0, 0, 0.764706)
+color = Color(0, 0, 0, 0.615686)
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="MagicalDemon/BulletController/ShootTimer" to="MagicalDemon/BulletController" method="_on_shoot_timer_timeout"]
