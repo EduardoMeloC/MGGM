@@ -11,8 +11,8 @@ var query := PhysicsShapeQueryParameters2D.new()
 		self.look_at(position + direction)
 		direction = value
 @export var speed := 256.0
-@export var max_distance := 2048.0
-@export var max_time_alive := 5
+@export var max_distance := 8192.0
+@export var max_time_alive := 30
 
 var direction_over_time := func(direction: Vector2, delta: float):
 	return direction
