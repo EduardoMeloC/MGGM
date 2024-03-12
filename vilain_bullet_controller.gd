@@ -4,7 +4,8 @@ extends Node2D
 enum patterns {
 	None,
 	Radial,
-	Zombie
+	Zombie,
+	Ghost
 }
 
 @export_range(0, 360) var _shoot_radius : int = 60:
@@ -51,7 +52,7 @@ func spawn_bullets_radial(bullet_count: int, shoot_radius: int, initial_directio
 				return bullet.direction * 6.0)
 
 func spawn_bullet_wall():	
-	var direction = Vector2(-540, 0) #vai pra esquerda da tela
+	var direction = Vector2(-1, 0) #vai pra esquerda da tela
 	var intervals = DisplayServer.screen_get_size().y/20
 	for i in 10:
 		if pattern_counter%2 == 0:
@@ -59,12 +60,26 @@ func spawn_bullet_wall():
 		else:
 			var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals + intervals/2), direction, Globals.BulletShape.circle, "orange")
 
+func spawn_ghost():
+	var direction = Vector2(-1, 0) #vai pra esquerda da tela
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, direction, Globals.BulletShape.circle, "blue")
+
+func spawn_ghost_collateral():
+	var up_direction = Vector2(0, -1) #vai pra esquerda da tela
+	var intervals = DisplayServer.screen_get_size().x/10
+	for i in 10:
+		pass
+		#var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals), direction, Globals.BulletShape.circle, "orange")
+	
+
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
 	if Input.is_key_pressed(KEY_P) and just_pressed:
 		start_radial()
 	if Input.is_key_pressed(KEY_O) and just_pressed:
 		start_zombie()
+	if Input.is_key_pressed(KEY_L) and just_pressed:
+		start_ghost()
 
 ####attack starters
 
@@ -79,6 +94,11 @@ func start_zombie():
 	pattern_counter = 10
 	_shoot_timer.start(0.3)
 
+func start_ghost():
+	_current_pattern = patterns.Ghost
+	pattern_counter = 1
+	spawn_ghost()
+	_shoot_timer.start(1.0)
 
 ####attack timer
 func _on_shoot_timer_timeout():
@@ -92,6 +112,8 @@ func _on_shoot_timer_timeout():
 					spawn_bullet_wall()
 				else:
 					spawn_bullets_radial(20, 145, Vector2(-540, 0), true)
+			patterns.Ghost:
+				spawn_ghost_collateral()
 				
 	else:
 		_shoot_timer.stop()
