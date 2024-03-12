@@ -162,14 +162,6 @@ shader_parameter/move_speed = 0.1
 [node name="Player" parent="." instance=ExtResource("1_45f4m")]
 position = Vector2(1012, 873)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1017, 656)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-light_mask = 1048575
-visibility_layer = 1048575
-shape = SubResource("RectangleShape2D_21otb")
-
 [node name="MagicalGirl" type="Node2D" parent="."]
 position = Vector2(300, 400)
 script = ExtResource("2_hesb7")
