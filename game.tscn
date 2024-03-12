@@ -184,17 +184,17 @@ libraries = {
 "": SubResource("AnimationLibrary_wj2xq")
 }
 
-[node name="Vilao" type="Node2D" parent="."]
+[node name="MagicalDemon" type="Node2D" parent="."]
 position = Vector2(1620, 400)
 
-[node name="BulletController" type="Node2D" parent="Vilao"]
+[node name="BulletController" type="Node2D" parent="MagicalDemon"]
 
-[node name="BulletPool" type="Node" parent="Vilao/BulletController"]
+[node name="BulletPool" type="Node" parent="MagicalDemon/BulletController"]
 script = ExtResource("3_7wcxh")
 
-[node name="ShootTimer" type="Timer" parent="Vilao/BulletController"]
+[node name="ShootTimer" type="Timer" parent="MagicalDemon/BulletController"]
 
-[node name="Sprite2D" type="Sprite2D" parent="Vilao"]
+[node name="Sprite2D" type="Sprite2D" parent="MagicalDemon"]
 modulate = Color(1, 0.168627, 1, 1)
 texture = ExtResource("3_87wf5")
 
@@ -251,4 +251,4 @@ offset_bottom = 1077.0
 color = Color(0, 0, 0, 0.764706)
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
-[connection signal="timeout" from="Vilao/BulletController/ShootTimer" to="Vilao/BulletController" method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="MagicalDemon/BulletController/ShootTimer" to="MagicalDemon/BulletController" method="_on_shoot_timer_timeout"]

@@ -3,7 +3,7 @@ extends Node2D
 class_name player
 
 @export var speed : float = 500;
-@export var focused_speed : float = 300;
+@export var focused_speed : float = 200;
 
 
 func _process(delta):

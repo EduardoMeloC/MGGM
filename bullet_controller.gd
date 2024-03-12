@@ -63,7 +63,7 @@ func spawn_bullets_faster(bullet_count: int, shoot_radius: int):
 			
 func spawn_bullets_sine(horizontal_speed: float, frequency: float, amplitude: float, speed := 400):
 	var player_direction = (_player.position - self.position).normalized() 
-	var bullet : Bullet = _pool.get_object().initialize(self.global_position, player_direction)
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, player_direction, Globals.BulletShape.capsule, "orange")
 	bullet.set_calculate_next_step(func(delta : float):
 		var dir = Vector2(horizontal_speed, cos(bullet.time_alive*frequency)*amplitude)
 		bullet.direction = dir

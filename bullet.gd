@@ -1,7 +1,40 @@
 class_name Bullet
-extends Sprite2D
+extends AnimatedSprite2D
 
-const SHAPE := preload("./resources/bullet_collision_shape.tres")
+const BulletData = {
+	Globals.BulletShape.circle: {
+		"shape": preload("./resources/bullet_circle_shape.tres"),
+		"animation": "circle"
+	},
+	Globals.BulletShape.capsule: {
+		"shape": preload("./resources/bullet_capsule_shape.tres"),
+		"animation": "capsule"
+	},
+	Globals.BulletShape.rectangle: {
+		"shape": preload("./resources/bullet_rectangle_shape.tres"),
+		"animation": "rectangle"
+	},
+	Globals.BulletShape.double: {
+		"shape": preload("./resources/bullet_double_shape.tres"),
+		"animation": "double"
+	},
+	Globals.BulletShape.big: {
+		"shape": preload("./resources/bullet_big_shape.tres"),
+		"animation": "big"
+	},
+}
+
+const ColorShift = {
+	"red": 0.0,
+	"orange": 0.083,
+	"yellow": 0.167,
+	"green": 0.333,
+	"cyan": 0.5,
+	"blue": 0.667,
+	"magenta": 0.833,
+	"pink": 0.917,
+}
+
 
 var query := PhysicsShapeQueryParameters2D.new()
 @onready var direct_space_state := get_world_2d().direct_space_state
@@ -27,12 +60,11 @@ var travelled_distance := 0.0
 var time_alive := 0.0
 
 func _init() -> void:
-	query.shape = SHAPE
 	query.collide_with_areas = true
 	query.collision_mask = 1
 	self.top_level = true
 	
-func initialize(position: Vector2, direction:Vector2, calculate_next_step:=func(delta: float): return self.direction * self.speed * delta):
+func initialize(position: Vector2, direction:Vector2, shape:= Globals.BulletShape.circle, color := "red"):
 	self.position = position
 	self.direction = direction.normalized()
 	self.look_at(position+self.direction)
@@ -40,7 +72,9 @@ func initialize(position: Vector2, direction:Vector2, calculate_next_step:=func(
 	self.process_mode = Node.PROCESS_MODE_INHERIT
 	self.travelled_distance = 0.0
 	self.time_alive = 0.0
-	self.calculate_next_step = calculate_next_step
+	self.animation = BulletData[shape]["animation"]
+	self.material.set("shader_parameter/hue_shift", ColorShift[color])
+	query.shape = BulletData[shape]["shape"]
 	return self
 	
 func deactivate():
