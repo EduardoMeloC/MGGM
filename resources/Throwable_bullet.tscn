@@ -8,6 +8,7 @@
 resource_local_to_scene = true
 shader = ExtResource("1_20cin")
 shader_parameter/sprite_sheet_rows = 1
+shader_parameter/is_negative = false
 shader_parameter/hue_shift = 0.667
 shader_parameter/sat_mul = 1.0
 shader_parameter/val_mul = 1.0
@@ -76,8 +77,13 @@ animations = [{
 }]
 
 [node name="BulletWithServer" type="AnimatedSprite2D"]
-process_mode = 4
 material = SubResource("ShaderMaterial_fgj6o")
 sprite_frames = SubResource("SpriteFrames_0tx45")
 animation = &"capsule"
 script = ExtResource("3_e53xg")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

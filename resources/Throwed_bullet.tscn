@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcrrtfetfumgs"]
+
+[ext_resource type="SpriteFrames" uid="uid://t4h06cmxkdhn" path="res://resources/bullet_animations.tres" id="1_ovsmr"]
+
+[node name="Throwed_bullet" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_ovsmr")
+animation = &"big"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
