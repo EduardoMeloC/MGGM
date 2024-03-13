@@ -51,7 +51,6 @@ var query := PhysicsShapeQueryParameters2D.new()
 @export var speed := 256.0
 @export var max_distance := 8192.0
 @export var max_time_alive := 30
-@onready var rebound_box = $Area2D/CollisionShape2D
 
 var direction_over_time := func(direction: Vector2, delta: float):
 	return direction
@@ -71,9 +70,10 @@ func _init() -> void:
 	self.top_level = true
 	
 var instanced_color
+var instanced_shape
 
 func initialize(position: Vector2, direction:Vector2, shape:= Globals.BulletShape.circle, color := "red", color_is_negative := false):
-	
+	instanced_shape = shape	
 	instanced_color = color
 	
 	self.position = position
@@ -86,6 +86,7 @@ func initialize(position: Vector2, direction:Vector2, shape:= Globals.BulletShap
 	self.animation = BulletData[shape]["animation"]
 	self.material.set("shader_parameter/hue_shift", ColorShift[color])
 	if color_is_negative:
+		var rebound_box = $Area2D/CollisionShape2D
 		rebound_box.shape = BulletData[shape]["shape"]
 		self.material.set("shader_parameter/is_negative", true)
 	query.shape = BulletData[shape]["shape"]

@@ -1,17 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt112qylyfoco"]
+[gd_scene load_steps=10 format=3 uid="uid://dt112qylyfoco"]
 
-[ext_resource type="Shader" path="res://resources/hueshift.gdshader" id="1_20cin"]
+[ext_resource type="Material" uid="uid://dhcev815wteyw" path="res://resources/ShaderMaterial.tres" id="1_754ma"]
 [ext_resource type="Texture2D" uid="uid://ckordsmwaxfrr" path="res://sprites/Bullets.png" id="2_5wgmj"]
 [ext_resource type="Script" path="res://bullet.gd" id="3_e53xg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgj6o"]
-resource_local_to_scene = true
-shader = ExtResource("1_20cin")
-shader_parameter/sprite_sheet_rows = 1
-shader_parameter/is_negative = false
-shader_parameter/hue_shift = 0.667
-shader_parameter/sat_mul = 1.0
-shader_parameter/val_mul = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ci5j1"]
 atlas = ExtResource("2_5wgmj")
@@ -77,7 +68,7 @@ animations = [{
 }]
 
 [node name="BulletWithServer" type="AnimatedSprite2D"]
-material = SubResource("ShaderMaterial_fgj6o")
+material = ExtResource("1_754ma")
 sprite_frames = SubResource("SpriteFrames_0tx45")
 animation = &"capsule"
 script = ExtResource("3_e53xg")
