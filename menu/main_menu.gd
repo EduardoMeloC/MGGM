@@ -33,20 +33,18 @@ const _default_resolution_index = 3
 @onready var creddits_button : Button = $Control/ButtonsContainer/VBoxContainer/CreditsButton
 @onready var settings_button : Button = $Control/ButtonsContainer/VBoxContainer/SettingButton
 @onready var exit_button : Button = $Control/ButtonsContainer/VBoxContainer/ExitButton
-#@onready var return_button : Button = $Control/ButtonsContainer/VBoxContainer/
+@onready var return_button : Button = $Control/ReturnButton
 
-@onready var resolution_menu : OptionButton = $Control/ResolutionContainer/ResolutionOptions
+@onready var resolution_menu : OptionButton = $Control/SettingsContainer/VBoxContainer/ResolutionContainer/ResolutionOptions
 
 @onready var audio = $AudioStreamPlayer
 
 @export var button_hover_audio : AudioStream
 @export var button_click_audio : AudioStream
 
-#func _ready():
-#	_add_resolution_options()
 
-
-func _ready() -> void:
+func _ready():
+	_add_resolution_options()
 	var fade_in_first_scene_options = SceneManager.create_options(1, "fade")
 	var first_scene_general_options = SceneManager.create_general_options(Color(0, 0, 0), 1, false)
 	SceneManager.show_first_scene(fade_in_first_scene_options, first_scene_general_options)
@@ -59,64 +57,64 @@ func _on_play_button_pressed():
 	SceneManager.change_scene("game", fade_out_options, fade_in_options, general_options)
 
 
-#func _on_options_button_pressed():
-#	var tween : Tween = create_tween().set_parallel(true)
-#	tween.set_ease(Tween.EASE_OUT)
-#	tween.set_trans(Tween.TRANS_CUBIC)
-#	tween.tween_property(_camera, "position", Vector2(343, 0), 0.5)
-#	return_button.position = Vector2(-100, 17)
-#	tween.tween_property(return_button, "position", Vector2(348, 17), 0.5)
-#
-#func _on_return_button_pressed():
-#	var tween : Tween = create_tween().set_parallel(true)
-#	tween.set_ease(Tween.EASE_OUT)
-#	tween.set_trans(Tween.TRANS_CUBIC)
-#	tween.tween_property(_camera, "position", Vector2.ZERO, 0.5)
-#	tween.tween_property(return_button, "position", Vector2(852, 17), 0.5)
-#
-#func _on_exit_button_pressed():
-#	get_tree().quit()
-#
-#
-#func _on_button_hover():
-#	audio.stream = button_hover_audio
-#	audio.play()
-#
-#func _add_resolution_options():
-#	for option in _resolution_options:
-#		resolution_menu.add_item("%dx%d" % [option.x, option.y])
-#	resolution_menu.select(_default_resolution_index)
-#
-#func _on_resolution_options_item_selected(index):
-#	var window_size = _resolution_options[index]
-#	var screen_size = DisplayServer.screen_get_size()
-#	var screen_center = Vector2(screen_size.x / 2 - window_size.x / 2, screen_size.y / 2 - window_size.y / 2)
-#	DisplayServer.window_set_size(window_size)
-#	DisplayServer.window_set_position(screen_center)
-#
-#
-#
-#
-#
-#func _on_fullscreen_toggled(button_pressed):
-#	if(button_pressed):
-#		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-#	else:
-#		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-#
-#
-#func _on_vsync_toggled(button_pressed):
-#	if(button_pressed):
-#		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-#	else:
-#		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-#
-#
-#func _on_sfx_slider_value_changed(value):
-#	var bus_index = AudioServer.get_bus_index("SFX")
-#	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-#
-#
-#func _on_music_slider_value_changed(value):
-#	var bus_index = AudioServer.get_bus_index("Music")
-#	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
+func _on_settings_button_pressed():
+	var tween : Tween = create_tween().set_parallel(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(_camera, "position", Vector2(1280, 0), 0.5)
+	return_button.position = Vector2(-100, 17)
+	tween.tween_property(return_button, "position", Vector2(1280+60, 30), 0.5)
+
+func _on_return_button_pressed():
+	var tween : Tween = create_tween().set_parallel(true)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(_camera, "position", Vector2.ZERO, 0.5)
+	tween.tween_property(return_button, "position", Vector2(3000, 30), 0.5)
+
+func _on_exit_button_pressed():
+	get_tree().quit()
+
+
+func _on_button_hover():
+	audio.stream = button_hover_audio
+	audio.play()
+
+func _add_resolution_options():
+	for option in _resolution_options:
+		resolution_menu.add_item("%dx%d" % [option.x, option.y])
+	resolution_menu.select(_default_resolution_index)
+
+func _on_resolution_options_item_selected(index):
+	var window_size = _resolution_options[index]
+	var screen_size = DisplayServer.screen_get_size()
+	var screen_center = Vector2(screen_size.x / 2 - window_size.x / 2, screen_size.y / 2 - window_size.y / 2)
+	DisplayServer.window_set_size(window_size)
+	DisplayServer.window_set_position(screen_center)
+
+
+
+
+
+func _on_fullscreen_toggled(button_pressed):
+	if(button_pressed):
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+
+func _on_vsync_toggled(button_pressed):
+	if(button_pressed):
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+
+func _on_sfx_slider_value_changed(value):
+	var bus_index = AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
+
+
+func _on_music_slider_value_changed(value):
+	var bus_index = AudioServer.get_bus_index("Music")
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
