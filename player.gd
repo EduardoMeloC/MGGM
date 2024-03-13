@@ -27,11 +27,13 @@ func _on_bullet_hit():
 	print("die")
 	
 func parry():
-	cd_throw.start()
+#	cd_throw.start()
 	var overlapping_areas = rebound_area.get_overlapping_areas()
 	if overlapping_areas:
+		print(overlapping_areas)
 		for area in overlapping_areas:
-			parried_bullet = area.get_node("../").deactivate()
+			if area.is_in_group("Throwable_bullet"):
+				parried_bullet = area.get_parent().deactivate()
 		has_bullet = true
 		
 func throw(bullet):
@@ -46,6 +48,7 @@ func throw(bullet):
 	throwed_bullet_spawn.material.set("shader_parameter/sat_mul", 2)
 	throwed_bullet_spawn.material.set("shader_parameter/val_mul", 0.5)
 	throwed_bullet_spawn.material.set("shader_parameter/is_negative", true)
+	bullet.get_parent().add_child(throwed_bullet_spawn)
 #	self.position = position
 #	self.direction = direction.normalized()
 #	self.look_at(position+self.direction)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcrrtfetfumgs"]
 
-[ext_resource type="Material" uid="uid://dhcev815wteyw" path="res://resources/ShaderMaterial.tres" id="1_nsytm"]
+[ext_resource type="Material" path="res://resources/ShaderMaterial.tres" id="1_nsytm"]
 [ext_resource type="SpriteFrames" uid="uid://t4h06cmxkdhn" path="res://resources/bullet_animations.tres" id="1_ovsmr"]
 [ext_resource type="Script" path="res://resources/Throwed_bullet.gd" id="2_hatqb"]
 
@@ -11,5 +11,7 @@ animation = &"big"
 script = ExtResource("2_hatqb")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
