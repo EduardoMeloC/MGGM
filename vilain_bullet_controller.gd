@@ -31,6 +31,8 @@ enum patterns {
 var _current_pattern := patterns.Radial
 var pattern_counter := 0
 
+var ghost_parent
+
 func _draw():
 	if Engine.is_editor_hint():
 		draw_arc(Vector2.ZERO, _debug_radius, 0, deg_to_rad(_shoot_radius), 32, Color.BLUE, 4)
@@ -63,14 +65,15 @@ func spawn_bullet_wall():
 func spawn_ghost():
 	var direction = Vector2(-1, 0) #vai pra esquerda da tela
 	var bullet : Bullet = _pool.get_object().initialize(self.global_position, direction, Globals.BulletShape.circle, "blue")
+	bullet.set_calculate_next_step(func(delta : float):
+		return bullet.direction * 10.0)
+	ghost_parent = bullet
+	var up_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(150.0).normalized(), Globals.BulletShape.circle, "blue")
+	var down_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(-150.0).normalized(), Globals.BulletShape.circle, "blue")
 
 func spawn_ghost_collateral():
-	var up_direction = Vector2(0, -1) #vai pra esquerda da tela
-	var intervals = DisplayServer.screen_get_size().x/10
-	for i in 10:
-		pass
-		#var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals), direction, Globals.BulletShape.circle, "orange")
-	
+	var up_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange")
+	var down_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange")
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
@@ -96,9 +99,9 @@ func start_zombie():
 
 func start_ghost():
 	_current_pattern = patterns.Ghost
-	pattern_counter = 1
+	pattern_counter = 15
 	spawn_ghost()
-	_shoot_timer.start(1.0)
+	_shoot_timer.start(0.3)
 
 ####attack timer
 func _on_shoot_timer_timeout():
@@ -111,7 +114,7 @@ func _on_shoot_timer_timeout():
 				if pattern_counter > 5:
 					spawn_bullet_wall()
 				else:
-					spawn_bullets_radial(20, 145, Vector2(-540, 0), true)
+					spawn_bullets_radial(20, 145, Vector2(-1, 0), true)
 			patterns.Ghost:
 				spawn_ghost_collateral()
 				
