@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcrrtfetfumgs"]
+[gd_scene load_steps=3 format=3 uid="uid://dcrrtfetfumgs"]
 
 [ext_resource type="SpriteFrames" uid="uid://t4h06cmxkdhn" path="res://resources/bullet_animations.tres" id="1_ovsmr"]
+[ext_resource type="Script" path="res://resources/Throwed_bullet.gd" id="2_hatqb"]
 
 [node name="Throwed_bullet" type="AnimatedSprite2D"]
 sprite_frames = ExtResource("1_ovsmr")
 animation = &"big"
+script = ExtResource("2_hatqb")
 
 [node name="Area2D" type="Area2D" parent="."]
 

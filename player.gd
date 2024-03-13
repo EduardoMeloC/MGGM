@@ -40,7 +40,7 @@ func throw(bullet):
 	throwed_bullet_spawn.position = bullet.position
 	throwed_bullet_spawn.direction = bullet.direction.normalized()
 	throwed_bullet.look_at(bullet.position + throwed_bullet_spawn.direction)
-	throwed_bullet.animation = bullet.Animation
+	throwed_bullet.animation = bullet.animation
 	throwed_bullet.material.set("shader_paramater/hue_shift", throwed_bullet.ColorShift[bullet.instanced_color])
 	throwed_bullet.material.set("shader_parameter/sat_mul", 2)
 	throwed_bullet.material.set("shader_parameter/val_mul", 0.5)
