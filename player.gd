@@ -30,9 +30,9 @@ func parry():
 #	cd_throw.start()
 	var overlapping_areas = rebound_area.get_overlapping_areas()
 	if overlapping_areas:
-		print(overlapping_areas)
-		for area in overlapping_areas:
-			if area.is_in_group("Throwable_bullet"):
+		for overlapping_area in overlapping_areas:
+			var area : Area2D = overlapping_area as Area2D
+			if not (area.get_parent() is ThrowedBullet):
 				parried_bullet = area.get_parent().deactivate()
 		has_bullet = true
 		
@@ -41,7 +41,7 @@ func throw(bullet):
 	throwed_bullet_spawn = throwed_bullet_instance.instantiate()
 	throwed_bullet_spawn.get_node("Area2D/CollisionShape2D").shape = throwed_bullet_spawn.BulletData[bullet.instanced_shape]["shape"]
 	throwed_bullet_spawn.position = self.position
-	throwed_bullet_spawn.direction = self.input_dir.normalized()
+	throwed_bullet_spawn.direction = self.input_dir.normalized() if self.input_dir.length() > 0 else Vector2.RIGHT
 	throwed_bullet_spawn.look_at(self.position + throwed_bullet_spawn.direction)
 	throwed_bullet_spawn.animation = bullet.animation
 	throwed_bullet_spawn.material.set("shader_paramater/hue_shift", throwed_bullet_spawn.ColorShift[bullet.instanced_color])

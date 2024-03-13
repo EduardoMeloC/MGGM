@@ -1,4 +1,5 @@
 extends AnimatedSprite2D
+class_name ThrowedBullet
 
 const BulletData = {
 	Globals.BulletShape.circle: {
@@ -43,7 +44,7 @@ const ColorShift = {
 	set(value): 
 		self.look_at(position + direction)
 		direction = value
-@export var speed := 256.0
+@export var speed := 2000.0
 @export var max_distance := 8192.0
 @export var max_time_alive := 30
 
@@ -59,11 +60,6 @@ var calculate_next_step := func(delta: float):
 func set_calculate_next_step(f := func(delta: float): return self.direction * self.speed * delta):
 	self.calculate_next_step = f
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var next_step = calculate_next_step.call(delta)
 	self.position += next_step
@@ -72,5 +68,3 @@ func _process(delta):
 	
 	if travelled_distance > max_distance or time_alive > max_time_alive:
 		queue_free()
-	
-	pass

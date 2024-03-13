@@ -70,7 +70,7 @@ func _init() -> void:
 	self.top_level = true
 	
 var instanced_color
-var instanced_shape
+var instanced_shape : Globals.BulletShape
 
 func initialize(position: Vector2, direction:Vector2, shape:= Globals.BulletShape.circle, color := "red", color_is_negative := false):
 	instanced_shape = shape	
