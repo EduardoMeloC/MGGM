@@ -86,7 +86,7 @@ func _process(delta: float) -> void:
 	self.position += next_step
 	travelled_distance += next_step.length()
 	time_alive += delta
-	query.transform = self.global_transform
+	query.transform = self.global_transform.rotated_local(90)
 
 	if travelled_distance > max_distance or time_alive > max_time_alive:
 		deactivate()
