@@ -1,0 +1,171 @@
+[gd_scene load_steps=17 format=3 uid="uid://dmplstrqvax6b"]
+
+[ext_resource type="Texture2D" uid="uid://du7rd4aanbw5o" path="res://menu/logo.png" id="1_c0gfr"]
+[ext_resource type="Shader" path="res://rotate.gdshader" id="2_a66po"]
+[ext_resource type="Texture2D" uid="uid://b5bnlhv0j618" path="res://sprites/background/Fundo Fundo.png" id="2_ka7cs"]
+[ext_resource type="Texture2D" uid="uid://dgaj6lrwqos1q" path="res://menu/star.png" id="3_pqg1p"]
+[ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="3_vgvh6"]
+[ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="4_ldnfn"]
+[ext_resource type="Texture2D" uid="uid://bllp3mgunyjtv" path="res://sprites/background/1 Plano.png" id="5_fxb45"]
+[ext_resource type="Shader" path="res://shaders/move-clouds.gdshader" id="9_84lrk"]
+[ext_resource type="Theme" uid="uid://dfeieaxh17yh0" path="res://menu/menu_theme.tres" id="10_i11oa"]
+[ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="10_ltnee"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_epnd5"]
+shader = ExtResource("9_84lrk")
+shader_parameter/move_speed = 0.01
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4eup0"]
+shader = ExtResource("9_84lrk")
+shader_parameter/move_speed = 0.03
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_73npf"]
+shader = ExtResource("9_84lrk")
+shader_parameter/move_speed = 0.05
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrlcv"]
+shader = ExtResource("9_84lrk")
+shader_parameter/move_speed = 0.07
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1pfs"]
+shader = ExtResource("9_84lrk")
+shader_parameter/move_speed = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_skg3o"]
+shader = ExtResource("2_a66po")
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.247059, 0, 0.776471, 0.521569)
+
+[node name="Background5" type="ParallaxBackground" parent="Control"]
+
+[node name="05" type="ParallaxLayer" parent="Control/Background5"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Background5/05"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_epnd5")
+texture = ExtResource("2_ka7cs")
+centered = false
+
+[node name="04" type="ParallaxLayer" parent="Control/Background5"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Background5/04"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_4eup0")
+texture = ExtResource("10_ltnee")
+centered = false
+
+[node name="03" type="ParallaxLayer" parent="Control/Background5"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Background5/03"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_73npf")
+texture = ExtResource("3_vgvh6")
+centered = false
+
+[node name="02" type="ParallaxLayer" parent="Control/Background5"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Background5/02"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_hrlcv")
+texture = ExtResource("4_ldnfn")
+centered = false
+
+[node name="01" type="ParallaxLayer" parent="Control/Background5"]
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/Background5/01"]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_j1pfs")
+texture = ExtResource("5_fxb45")
+centered = false
+
+[node name="ColorRect" type="ColorRect" parent="Control/Background5"]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1077.0
+color = Color(0, 0, 0, 0.615686)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 24.0
+offset_right = 1138.0
+offset_bottom = 435.0
+
+[node name="Logo" type="TextureRect" parent="Control/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("1_c0gfr")
+
+[node name="Star" type="TextureRect" parent="Control/CenterContainer/Logo"]
+material = SubResource("ShaderMaterial_skg3o")
+layout_mode = 0
+offset_left = 218.0
+offset_top = 150.0
+offset_right = 378.0
+offset_bottom = 303.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_pqg1p")
+
+[node name="Star2" type="TextureRect" parent="Control/CenterContainer/Logo"]
+material = SubResource("ShaderMaterial_skg3o")
+offset_left = 516.0
+offset_top = 150.0
+offset_right = 676.0
+offset_bottom = 303.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_pqg1p")
+
+[node name="Star3" type="TextureRect" parent="Control/CenterContainer/Logo"]
+material = SubResource("ShaderMaterial_skg3o")
+offset_left = 350.0
+offset_top = 272.0
+offset_right = 510.0
+offset_bottom = 425.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_pqg1p")
+
+[node name="ButtonsContainer" type="CenterContainer" parent="Control"]
+layout_mode = 2
+offset_top = 480.0
+offset_right = 1280.0
+offset_bottom = 692.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ButtonsContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+text = "PLAY"
+
+[node name="SettingsButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+text = "SETTINGS"
+
+[node name="CreditsButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+text = "CREDIT"
+
+[node name="ExitButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+text = "EXIT"

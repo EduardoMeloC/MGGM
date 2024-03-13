@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform int sprite_sheet_rows: hint_range(1,16) = 1;
+uniform bool is_negative = false;
 
 uniform float hue_shift : hint_range(0.0,1.0) = 0.0;
 uniform float sat_mul : hint_range(0.0,10.0) = 1.0;
@@ -29,5 +30,6 @@ void fragment() {
 	color_hsv.y = min((color_hsv.y * sat_mul), 1.01);
 	color_hsv.z = min((color_hsv.z * val_mul), 1.01);
 	vec3 color_rgb = hsv2rgb(color_hsv);
-	COLOR.rgba = vec4(color_rgb.rgb,texture_color.a);
+	color_rgb = is_negative ? (1.0 - color_rgb) : color_rgb;
+	COLOR.rgba = vec4(color_rgb.rgb, texture_color.a);
 }

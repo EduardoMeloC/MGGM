@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://bob3ny2itd4a4"]
+[gd_scene load_steps=23 format=3 uid="uid://bob3ny2itd4a4"]
 
-[ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://player.tscn" id="1_45f4m"]
+[ext_resource type="PackedScene" uid="uid://cquew6n7yc7b" path="res://game_objects_scenes/player.tscn" id="1_45f4m"]
 [ext_resource type="Script" path="res://bullet_controller.gd" id="2_4gnp3"]
 [ext_resource type="Script" path="res://magical_girl.gd" id="2_hesb7"]
 [ext_resource type="Script" path="res://bullet_pool.gd" id="3_7wcxh"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="8_r1lod"]
 [ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="9_yribo"]
 [ext_resource type="Texture2D" uid="uid://bllp3mgunyjtv" path="res://sprites/background/1 Plano.png" id="10_c76aa"]
+[ext_resource type="Texture2D" uid="uid://1g4vo6vent4w" path="res://sprites/interface.png" id="12_qiyib"]
 
 [sub_resource type="Animation" id="Animation_y0vr4"]
 resource_name = "Attack"
@@ -26,7 +27,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, 30), Vector2(0, 0), Vector2(0, -30), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, 30), Vector2(80, 0), Vector2(0, -30), Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -38,7 +39,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(300, 400), Vector2(300, 430), Vector2(300, 400), Vector2(300, 370), Vector2(300, 400)]
+"values": [Vector2(80, 400), Vector2(80, 430), Vector2(80, 400), Vector2(80, 370), Vector2(80, 400)]
 }
 
 [sub_resource type="Animation" id="Animation_yq3au"]
@@ -67,7 +68,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(300, 400), Vector2(304, 400), Vector2(297, 410), Vector2(293, 403), Vector2(300, 400)]
+"values": [Vector2(80, 400), Vector2(83, 400), Vector2(78, 410), Vector2(81, 403), Vector2(79, 400)]
 }
 
 [sub_resource type="Animation" id="Animation_gos5l"]
@@ -157,7 +158,7 @@ shader_parameter/move_speed = 0.1
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_45f4m")]
-position = Vector2(1012, 873)
+position = Vector2(648, 420)
 
 [node name="MagicalGirl" type="Node2D" parent="."]
 position = Vector2(300, 400)
@@ -176,6 +177,7 @@ script = ExtResource("3_7wcxh")
 
 [node name="Sprite2D" type="Sprite2D" parent="MagicalGirl"]
 texture = ExtResource("3_87wf5")
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MagicalGirl"]
 root_node = NodePath("../BulletController")
@@ -185,7 +187,7 @@ libraries = {
 }
 
 [node name="MagicalDemon" type="Node2D" parent="."]
-position = Vector2(1620, 400)
+position = Vector2(1200, 400)
 
 [node name="BulletController" type="Node2D" parent="MagicalDemon"]
 
@@ -246,9 +248,24 @@ texture = ExtResource("10_c76aa")
 centered = false
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
-offset_right = 1920.0
-offset_bottom = 1077.0
+offset_right = 1280.0
+offset_bottom = 720.0
 color = Color(0, 0, 0, 0.615686)
+
+[node name="UIControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="CenterContainer" type="CenterContainer" parent="UIControl"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="TextureRect" type="TextureRect" parent="UIControl/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("12_qiyib")
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="MagicalDemon/BulletController/ShootTimer" to="MagicalDemon/BulletController" method="_on_shoot_timer_timeout"]
