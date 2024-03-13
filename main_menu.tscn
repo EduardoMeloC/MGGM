@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://dmplstrqvax6b"]
+[gd_scene load_steps=21 format=3 uid="uid://driqi4sah41hw"]
 
 [ext_resource type="Texture2D" uid="uid://du7rd4aanbw5o" path="res://menu/logo.png" id="1_c0gfr"]
+[ext_resource type="Script" path="res://menu/main_menu.gd" id="1_ju44e"]
 [ext_resource type="Shader" path="res://rotate.gdshader" id="2_a66po"]
 [ext_resource type="Texture2D" uid="uid://b5bnlhv0j618" path="res://sprites/background/Fundo Fundo.png" id="2_ka7cs"]
 [ext_resource type="Texture2D" uid="uid://dgaj6lrwqos1q" path="res://menu/star.png" id="3_pqg1p"]
@@ -10,6 +11,7 @@
 [ext_resource type="Shader" path="res://shaders/move-clouds.gdshader" id="9_84lrk"]
 [ext_resource type="Theme" uid="uid://dfeieaxh17yh0" path="res://menu/menu_theme.tres" id="10_i11oa"]
 [ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="10_ltnee"]
+[ext_resource type="Texture2D" uid="uid://03664vv1jqrm" path="res://menu/gui_icons.png" id="12_g47u4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_epnd5"]
 shader = ExtResource("9_84lrk")
@@ -34,7 +36,16 @@ shader_parameter/move_speed = 0.1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_skg3o"]
 shader = ExtResource("2_a66po")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_emceq"]
+atlas = ExtResource("12_g47u4")
+region = Rect2(0, 0, 28, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnjry"]
+atlas = ExtResource("12_g47u4")
+region = Rect2(28, 0, 28, 26)
+
 [node name="MainMenu" type="Node2D"]
+script = ExtResource("1_ju44e")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -44,7 +55,7 @@ offset_bottom = 720.0
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_right = 1280.0
+offset_right = 2560.0
 offset_bottom = 720.0
 color = Color(0.247059, 0, 0.776471, 0.521569)
 
@@ -125,6 +136,7 @@ texture = ExtResource("3_pqg1p")
 
 [node name="Star2" type="TextureRect" parent="Control/CenterContainer/Logo"]
 material = SubResource("ShaderMaterial_skg3o")
+layout_mode = 0
 offset_left = 516.0
 offset_top = 150.0
 offset_right = 676.0
@@ -134,6 +146,7 @@ texture = ExtResource("3_pqg1p")
 
 [node name="Star3" type="TextureRect" parent="Control/CenterContainer/Logo"]
 material = SubResource("ShaderMaterial_skg3o")
+layout_mode = 0
 offset_left = 350.0
 offset_top = 272.0
 offset_right = 510.0
@@ -163,9 +176,74 @@ text = "SETTINGS"
 [node name="CreditsButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_i11oa")
-text = "CREDIT"
+text = "CREDITS"
 
 [node name="ExitButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_i11oa")
 text = "EXIT"
+
+[node name="SettingsContainer" type="CenterContainer" parent="Control"]
+layout_mode = 2
+offset_left = 1280.0
+offset_right = 2560.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/SettingsContainer"]
+layout_mode = 2
+
+[node name="SoundContainer" type="VBoxContainer" parent="Control/SettingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="Control/SettingsContainer/VBoxContainer/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/SettingsContainer/VBoxContainer/SoundContainer/MusicSlider"]
+layout_mode = 2
+offset_left = -27.98
+offset_right = 0.0200005
+offset_bottom = 26.0
+texture = SubResource("AtlasTexture_emceq")
+
+[node name="SFXSlider" type="HSlider" parent="Control/SettingsContainer/VBoxContainer/SoundContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/SettingsContainer/VBoxContainer/SoundContainer/SFXSlider"]
+layout_mode = 2
+offset_left = -27.98
+offset_right = 0.0200005
+offset_bottom = 26.0
+texture = SubResource("AtlasTexture_jnjry")
+
+[node name="ScreenContainer" type="HBoxContainer" parent="Control/SettingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Fullscreen" type="CheckButton" parent="Control/SettingsContainer/VBoxContainer/ScreenContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+text = "Fullscreen"
+
+[node name="Vsync" type="CheckButton" parent="Control/SettingsContainer/VBoxContainer/ScreenContainer"]
+layout_mode = 2
+theme = ExtResource("10_i11oa")
+button_pressed = true
+text = "VSync"
+
+[node name="ResolutionContainer" type="HBoxContainer" parent="Control/SettingsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/SettingsContainer/VBoxContainer/ResolutionContainer"]
+layout_mode = 2
+text = "Resolution"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="Control/ButtonsContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
