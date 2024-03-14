@@ -55,10 +55,14 @@ func _ready():
 	bgm.play(0.0)
 
 func _on_play_button_pressed():
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 	SceneManager.change_scene("game", fade_out_options, fade_in_options, general_options)
 
 
 func _on_settings_button_pressed():
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 	var tween : Tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -67,6 +71,8 @@ func _on_settings_button_pressed():
 	tween.tween_property(return_button, "position", Vector2(1280+60, 30), 0.5)
 
 func _on_return_button_pressed():
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 	var tween : Tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -74,12 +80,9 @@ func _on_return_button_pressed():
 	tween.tween_property(return_button, "position", Vector2(3000, 30), 0.5)
 
 func _on_exit_button_pressed():
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 	get_tree().quit()
-
-
-func _on_button_hover():
-	audio.stream = button_hover_audio
-	audio.play()
 
 func _add_resolution_options():
 	for option in _resolution_options:
@@ -117,6 +120,5 @@ func _on_sfx_slider_value_changed(value):
 
 
 func _on_music_slider_value_changed(value):
-	print("AAAAAAAAAAA")
 	var bus_index = AudioServer.get_bus_index("Music")
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
