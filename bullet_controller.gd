@@ -72,20 +72,6 @@ func spawn_bullets_sine(horizontal_speed: float, frequency: float, amplitude: fl
 		return next_step
 	)
 
-func _input(event):
-	var just_pressed = event.is_pressed() and not event.is_echo()
-	if Input.is_key_pressed(KEY_SPACE) and just_pressed:
-		start_radial()
-	if Input.is_key_pressed(KEY_F1) and just_pressed:
-		spawn_bullets_faster(64, 64)
-	if Input.is_key_pressed(KEY_F2) and just_pressed:
-		spawn_bullets_sine(1, 2, 2)
-		spawn_bullets_sine(1, 2, -2)
-	if Input.is_key_pressed(KEY_0) and just_pressed:
-		start_constellation()
-	if Input.is_key_pressed(KEY_1) and just_pressed:
-		start_ribbon()
-
 #constellation
 func get_vector(angle):
 	theta = angle + alpha

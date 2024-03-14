@@ -257,6 +257,7 @@ text = "RETURN"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0
 bus = &"Music"
 
 [node name="Camera" type="Camera2D" parent="."]

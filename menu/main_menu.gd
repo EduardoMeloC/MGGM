@@ -51,7 +51,7 @@ func _ready():
 	SceneManager.validate_scene("game")
 	SceneManager.validate_pattern(fade_out_pattern)
 	SceneManager.validate_pattern(fade_in_pattern)
-	bgm.set_stream(load("res://resources/sound/At-the-end-of-Revollution.ogg"))
+	bgm.set_stream(load("res://resources/sound/A-tale-of-loyalty-and-mischief.ogg"))
 	bgm.play(0.0)
 
 func _on_play_button_pressed():
