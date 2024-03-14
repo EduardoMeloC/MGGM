@@ -8,7 +8,7 @@ var _pool = []
 var _index = 0
 
 var _throwable_bullet = preload("res://resources/Throwable_bullet.tscn")
-var _throwable_pool_size = 8
+var _throwable_pool_size = 16
 var _throwable_pool = []
 var _throwable_index = 0
 
