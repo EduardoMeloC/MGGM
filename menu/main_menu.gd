@@ -30,8 +30,7 @@ const _default_resolution_index = 3
 @onready var _camera : Camera2D = $Camera
 
 @onready var play_button : Button = $Control/ButtonsContainer/VBoxContainer/PlayButton
-@onready var creddits_button : Button = $Control/ButtonsContainer/VBoxContainer/CreditsButton
-@onready var settings_button : Button = $Control/ButtonsContainer/VBoxContainer/SettingButton
+@onready var settings_button : Button = $Control/ButtonsContainer/VBoxContainer/SettingsButton
 @onready var exit_button : Button = $Control/ButtonsContainer/VBoxContainer/ExitButton
 @onready var return_button : Button = $Control/ReturnButton
 

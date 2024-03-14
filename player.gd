@@ -34,7 +34,7 @@ func parry():
 			var area : Area2D = overlapping_area as Area2D
 			if not (area.get_parent() is ThrowedBullet):
 				parried_bullet = area.get_parent().deactivate()
-		has_bullet = true
+				has_bullet = true
 		
 func throw(bullet):
 	#position: Vector2, direction:Vector2, shape:= Globals.BulletShape.circle, color := "red", color_is_negative := false
