@@ -290,6 +290,7 @@ scale = Vector2(0.340874, 0.340874)
 texture = ExtResource("13_ac6gd")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 volume_db = -5.0

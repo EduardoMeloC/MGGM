@@ -53,6 +53,8 @@ func _ready():
 	SceneManager.validate_pattern(fade_in_pattern)
 	bgm.set_stream(load("res://resources/sound/A-tale-of-loyalty-and-mischief.ogg"))
 	bgm.play(0.0)
+	$Control/SettingsContainer/VBoxContainer/SoundContainer/MusicSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
+	$Control/SettingsContainer/VBoxContainer/SoundContainer/SFXSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('SFX')))
 
 func _on_play_button_pressed():
 	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
