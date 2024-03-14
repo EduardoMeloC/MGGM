@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://vilain_bullet_controller.gd" id="6_r77a3"]
 [ext_resource type="Texture2D" uid="uid://x2nalje10xx" path="res://sprites/girl_idle_attack.png" id="7_3uwm2"]
 [ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="7_ii2gt"]
+[ext_resource type="Script" path="res://magical_demon.gd" id="7_yllou"]
 [ext_resource type="Texture2D" uid="uid://do52jltyysbg2" path="res://sprites/background/3 Plano.png" id="8_r1lod"]
 [ext_resource type="Texture2D" uid="uid://dsqlcx0qllpca" path="res://sprites/background/2 Plano.png" id="9_yribo"]
 [ext_resource type="Texture2D" uid="uid://bllp3mgunyjtv" path="res://sprites/background/1 Plano.png" id="10_c76aa"]
@@ -205,6 +206,7 @@ libraries = {
 
 [node name="MagicalDemon" type="Node2D" parent="."]
 position = Vector2(1200, 400)
+script = ExtResource("7_yllou")
 
 [node name="BulletController" type="Node2D" parent="MagicalDemon"]
 script = ExtResource("6_r77a3")
@@ -296,8 +298,11 @@ expand_mode = 3
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_rl3xh")
-volume_db = -15.0
+volume_db = -10.0
 bus = &"Music"
+
+[node name="TurnTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="MagicalGirl/BulletController/ShootTimer" to="MagicalGirl/BulletController" method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="MagicalDemon/BulletController/ShootTimer" to="MagicalDemon/BulletController" method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]

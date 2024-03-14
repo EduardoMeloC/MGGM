@@ -78,14 +78,6 @@ func spawn_ghost_collateral():
 	var up_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange", true)
 	var down_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange", true)
 
-func _input(event):
-	var just_pressed = event.is_pressed() and not event.is_echo()
-	if Input.is_key_pressed(KEY_P) and just_pressed:
-		start_radial()
-	if Input.is_key_pressed(KEY_O) and just_pressed:
-		start_zombie()
-	if Input.is_key_pressed(KEY_L) and just_pressed:
-		start_ghost()
 
 ####attack starters
 
