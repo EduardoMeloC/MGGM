@@ -32,7 +32,7 @@ var _current_pattern := patterns.Radial
 var pattern_counter := 0
 
 var rng = RandomNumberGenerator.new()
-var rebound_chance : float = 0.05
+var rebound_chance : float = 0.02
 
 var ghost_parent
 

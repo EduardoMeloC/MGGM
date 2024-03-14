@@ -35,7 +35,7 @@ var pattern_counter := 0
 var theta = 0.0
 var alpha := 1.3 #range = (0, 2*PI)
 var rng = RandomNumberGenerator.new()
-var rebound_chance : float = 0.05
+var rebound_chance : float = 0.02
 
 func _draw():
 	if Engine.is_editor_hint():
