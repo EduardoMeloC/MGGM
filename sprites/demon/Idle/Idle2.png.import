@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjctivgvaplud"
-path="res://.godot/imported/Pausa.png-ea18574f69b1d1b0ecc8ce03682b40cc.ctex"
+uid="uid://pflbkncidhwh"
+path="res://.godot/imported/Idle2.png-83e9e208d84d3ed05cc447198bceb1bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Pausa.png"
-dest_files=["res://.godot/imported/Pausa.png-ea18574f69b1d1b0ecc8ce03682b40cc.ctex"]
+source_file="res://sprites/demon/Idle/Idle2.png"
+dest_files=["res://.godot/imported/Idle2.png-83e9e208d84d3ed05cc447198bceb1bd.ctex"]
 
 [params]
 

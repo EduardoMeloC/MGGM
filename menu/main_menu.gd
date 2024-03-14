@@ -53,6 +53,8 @@ func _ready():
 	SceneManager.validate_pattern(fade_in_pattern)
 	bgm.set_stream(load("res://resources/sound/A-tale-of-loyalty-and-mischief.ogg"))
 	bgm.play(0.0)
+	$Control/SettingsContainer/VBoxContainer/SoundContainer/MusicSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
+	$Control/SettingsContainer/VBoxContainer/SoundContainer/SFXSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('SFX')))
 
 func _on_play_button_pressed():
 	SceneManager.change_scene("game", fade_out_options, fade_in_options, general_options)
@@ -117,6 +119,5 @@ func _on_sfx_slider_value_changed(value):
 
 
 func _on_music_slider_value_changed(value):
-	print("AAAAAAAAAAA")
 	var bus_index = AudioServer.get_bus_index("Music")
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
