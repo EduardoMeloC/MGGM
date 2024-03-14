@@ -20,6 +20,8 @@ extends Control
 
 @onready var pause_menu = $PauseContainer
 
+@onready var audio = $"../AudioStreamPlayer"
+
 func _ready():
 	$PauseContainer/VBoxContainer/MusicSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('Music')))
 	$PauseContainer/VBoxContainer/SFXSlider.value = db_to_linear(AudioServer.get_bus_volume_db(AudioServer.get_bus_index('SFX')))
@@ -37,10 +39,14 @@ func _input(event):
 func _on_resume_pressed():
 	get_tree().paused = false
 	pause_menu.visible = false
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 
 func _on_main_menu_pressed():
 	SceneManager.change_scene("main_menu", fade_out_options, fade_in_options, general_options)
 	get_tree().paused = false
+	audio.set_stream(load("res://resources/sound/sfx/botoes_menu.mp3"))
+	audio.play(0.0)
 
 
 func _on_sfx_slider_value_changed(value):
