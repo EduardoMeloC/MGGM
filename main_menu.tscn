@@ -292,6 +292,7 @@ texture = ExtResource("13_ac6gd")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -299,6 +300,8 @@ anchor_mode = 0
 [connection signal="pressed" from="Control/ButtonsContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/ButtonsContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Control/ButtonsContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="value_changed" from="Control/SettingsContainer/VBoxContainer/SoundContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Control/SettingsContainer/VBoxContainer/SoundContainer/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
 [connection signal="toggled" from="Control/SettingsContainer/VBoxContainer/ScreenContainer/Fullscreen" to="." method="_on_fullscreen_toggled"]
 [connection signal="toggled" from="Control/SettingsContainer/VBoxContainer/ScreenContainer/Vsync" to="." method="_on_vsync_toggled"]
 [connection signal="item_selected" from="Control/SettingsContainer/VBoxContainer/ResolutionContainer/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]

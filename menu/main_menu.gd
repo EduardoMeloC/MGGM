@@ -37,6 +37,7 @@ const _default_resolution_index = 3
 @onready var resolution_menu : OptionButton = $Control/SettingsContainer/VBoxContainer/ResolutionContainer/ResolutionOptions
 
 @onready var audio = $AudioStreamPlayer
+@onready var bgm = $BGM
 
 @export var button_hover_audio : AudioStream
 @export var button_click_audio : AudioStream
@@ -50,9 +51,10 @@ func _ready():
 	SceneManager.validate_scene("game")
 	SceneManager.validate_pattern(fade_out_pattern)
 	SceneManager.validate_pattern(fade_in_pattern)
+	bgm.set_stream(load("res://resources/sound/At-the-end-of-Revollution.ogg"))
+	bgm.play(0.0)
 
 func _on_play_button_pressed():
-	print("play pressed")
 	SceneManager.change_scene("game", fade_out_options, fade_in_options, general_options)
 
 
@@ -115,5 +117,6 @@ func _on_sfx_slider_value_changed(value):
 
 
 func _on_music_slider_value_changed(value):
+	print("AAAAAAAAAAA")
 	var bus_index = AudioServer.get_bus_index("Music")
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
