@@ -23,8 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://b0sq8i4ppj8aj" path="res://sprites/demon/Idle/Idle4.png" id="13_gxpac"]
 [ext_resource type="Texture2D" uid="uid://d8qu3any3701" path="res://sprites/demon/Idle/Idle5.png" id="14_llpl4"]
 [ext_resource type="Texture2D" uid="uid://b3ds6dq0oedtr" path="res://sprites/demon/Idle/Idle6.png" id="15_0rs6w"]
-[ext_resource type="AudioStream" uid="uid://cgll88q8f6nuh" path="res://resources/sound/Urban-Airspace-Magic-Battlefield-Dance-loop.ogg" id="15_rl3xh"]
 [ext_resource type="Texture2D" uid="uid://b47uho3rsu35j" path="res://sprites/demon/Idle/Idle7.png" id="16_dh4um"]
+[ext_resource type="AudioStream" uid="uid://d2w0xgtyel47m" path="res://resources/sound/battle-Introo.mp3" id="16_gv6cv"]
 [ext_resource type="Texture2D" uid="uid://ckht5xoruv8qu" path="res://sprites/demon/Idle/Idle8.png" id="17_njtqf"]
 [ext_resource type="Script" path="res://ui_controller.gd" id="18_pp8nd"]
 [ext_resource type="Texture2D" uid="uid://bwj6pocwvwnio" path="res://menu/pause.png" id="20_w2iqq"]
@@ -229,6 +229,7 @@ position = Vector2(300, 400)
 script = ExtResource("2_hesb7")
 
 [node name="BulletController" type="Node2D" parent="MagicalGirl"]
+position = Vector2(210, 45)
 script = ExtResource("2_4gnp3")
 _shoot_radius = 64
 _bullet_count = 64
@@ -432,10 +433,12 @@ theme = ExtResource("21_ox5bx")
 text = "MAIN MENU"
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("15_rl3xh")
+stream = ExtResource("16_gv6cv")
 volume_db = -10.0
 bus = &"Music"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
 
 [node name="TurnTimer" type="Timer" parent="."]
 
@@ -445,4 +448,5 @@ bus = &"Music"
 [connection signal="value_changed" from="UIControl/PauseContainer/VBoxContainer/SFXSlider" to="UIControl" method="_on_sfx_slider_value_changed"]
 [connection signal="pressed" from="UIControl/PauseContainer/VBoxContainer/Resume" to="UIControl" method="_on_resume_pressed"]
 [connection signal="pressed" from="UIControl/PauseContainer/VBoxContainer/Main Menu" to="UIControl" method="_on_main_menu_pressed"]
+[connection signal="finished" from="BGM" to="." method="_on_bgm_finished"]
 [connection signal="timeout" from="TurnTimer" to="." method="_on_turn_timer_timeout"]
