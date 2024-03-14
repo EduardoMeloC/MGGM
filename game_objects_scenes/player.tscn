@@ -1,24 +1,118 @@
-[gd_scene load_steps=5 format=3 uid="uid://cquew6n7yc7b"]
+[gd_scene load_steps=19 format=3 uid="uid://cquew6n7yc7b"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_1mop3"]
-[ext_resource type="Texture2D" uid="uid://dxtn5iou2mc2y" path="res://sprites/player.png" id="2_2tqaj"]
+[ext_resource type="Material" uid="uid://bxyuws4owhbjo" path="res://resources/outline_material.tres" id="2_25dvu"]
+[ext_resource type="Texture2D" uid="uid://drduwjwu6fcq" path="res://sprites/pet_idle.png" id="3_7cs08"]
+[ext_resource type="Texture2D" uid="uid://bggawpnjtr20k" path="res://sprites/pet_attack.png" id="3_wfnl2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ks2mf"]
-radius = 8.0
+radius = 21.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yg28t"]
-radius = 247.164
+radius = 99.0051
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxqya"]
+atlas = ExtResource("3_wfnl2")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oio2"]
+atlas = ExtResource("3_wfnl2")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwdrg"]
+atlas = ExtResource("3_wfnl2")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhw4b"]
+atlas = ExtResource("3_wfnl2")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e6nd"]
+atlas = ExtResource("3_wfnl2")
+region = Rect2(1536, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkqg5"]
+atlas = ExtResource("3_7cs08")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahx1a"]
+atlas = ExtResource("3_7cs08")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu6lk"]
+atlas = ExtResource("3_7cs08")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtcmj"]
+atlas = ExtResource("3_7cs08")
+region = Rect2(1152, 0, 384, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7nsj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxqya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oio2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwdrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhw4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e6nd")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkqg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahx1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu6lk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtcmj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 11.0
+}]
+
+[sub_resource type="Animation" id="Animation_mpp2s"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lwacs"]
+_data = {
+"idle": SubResource("Animation_mpp2s")
+}
 
 [node name="Player" type="Node2D" groups=["Player"]]
 script = ExtResource("1_1mop3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_2tqaj")
-
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(22, 24)
 shape = SubResource("CircleShape2D_ks2mf")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -29,7 +123,21 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rebound"]
-position = Vector2(22, 24)
 shape = SubResource("CircleShape2D_yg28t")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_25dvu")
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_n7nsj")
+animation = &"attack"
+autoplay = "idle"
+frame = 4
+frame_progress = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lwacs")
+}
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_enter"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

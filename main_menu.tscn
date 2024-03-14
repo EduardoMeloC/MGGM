@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbmxewyc0kykn"]
+[gd_scene load_steps=22 format=3 uid="uid://bbmxewyc0kykn"]
 
 [ext_resource type="Texture2D" uid="uid://du7rd4aanbw5o" path="res://menu/logo.png" id="1_c0gfr"]
 [ext_resource type="Script" path="res://menu/main_menu.gd" id="1_ju44e"]
@@ -12,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://dfeieaxh17yh0" path="res://menu/menu_theme.tres" id="10_i11oa"]
 [ext_resource type="Texture2D" uid="uid://cc2scugjjbale" path="res://sprites/background/4 Plano.png" id="10_ltnee"]
 [ext_resource type="Texture2D" uid="uid://03664vv1jqrm" path="res://menu/gui_icons.png" id="12_g47u4"]
+[ext_resource type="Texture2D" uid="uid://c65cv4bs5pqsj" path="res://menu/girl_menu.png" id="13_ac6gd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_epnd5"]
 shader = ExtResource("9_84lrk")
@@ -115,10 +116,11 @@ color = Color(0, 0, 0, 0.615686)
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 0
-offset_left = 114.0
-offset_top = 24.0
-offset_right = 1138.0
-offset_bottom = 435.0
+offset_left = 756.0
+offset_top = 25.0
+offset_right = 1396.0
+offset_bottom = 436.0
+scale = Vector2(0.745, 0.745)
 
 [node name="Logo" type="TextureRect" parent="Control/CenterContainer"]
 layout_mode = 2
@@ -156,27 +158,33 @@ texture = ExtResource("3_pqg1p")
 
 [node name="ButtonsContainer" type="CenterContainer" parent="Control"]
 layout_mode = 2
-offset_top = 461.0
-offset_right = 1280.0
-offset_bottom = 673.0
+offset_left = 850.0
+offset_top = 370.0
+offset_right = 1250.0
+offset_bottom = 582.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/ButtonsContainer"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_i11oa")
 text = "PLAY"
+alignment = 2
+icon_alignment = 2
 
 [node name="SettingsButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_i11oa")
 text = "SETTINGS"
+alignment = 2
 
 [node name="ExitButton" type="Button" parent="Control/ButtonsContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("10_i11oa")
 text = "EXIT"
+alignment = 2
 
 [node name="SettingsContainer" type="CenterContainer" parent="Control"]
 layout_mode = 2
@@ -253,6 +261,33 @@ offset_right = 3141.0
 offset_bottom = 80.0
 theme = ExtResource("10_i11oa")
 text = "RETURN"
+
+[node name="MagicalGirl" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 113.0
+offset_top = 66.0
+offset_right = 593.0
+offset_bottom = 546.0
+scale = Vector2(1.395, 1.395)
+
+[node name="Shadow" type="TextureRect" parent="Control/MagicalGirl"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = -2.86739
+offset_top = 31.5412
+offset_right = 1435.13
+offset_bottom = 1227.54
+scale = Vector2(0.340874, 0.340874)
+texture = ExtResource("13_ac6gd")
+
+[node name="Girl" type="TextureRect" parent="Control/MagicalGirl"]
+layout_mode = 0
+offset_left = 10.0358
+offset_top = 20.0717
+offset_right = 1448.04
+offset_bottom = 1216.07
+scale = Vector2(0.340874, 0.340874)
+texture = ExtResource("13_ac6gd")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

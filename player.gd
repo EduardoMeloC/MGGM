@@ -2,10 +2,11 @@ extends Node2D
 
 class_name player
 
-@export var speed : float = 500;
-@export var focused_speed : float = 200;
+@export var speed : float = 300;
+@export var focused_speed : float = 150;
 @onready var cd_throw : = $Timer
 @onready var rebound_area := $Rebound #é importante que a layer e a mask disso daqui são diferentes da do player, e dos inimigos, e igual a da throwable bullet
+@onready var animator := $AnimatedSprite2D
 var has_bullet : bool = false
 var parried_bullet
 var throwed_bullet_instance = load("res://resources/Throwed_bullet.tscn")
@@ -14,6 +15,10 @@ var input_dir : Vector2
 
 func _process(delta):
 	input_dir = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
+	if input_dir.x > 0:
+		animator.flip_h = false
+	if input_dir.x < 0:
+		animator.flip_h = true
 	var speed_multiplier = focused_speed if Input.is_action_pressed("focus_movement") else speed
 	if has_bullet:
 		speed_multiplier = 0
@@ -27,6 +32,7 @@ func _on_bullet_hit():
 	print("die")
 	
 func parry():
+	animator.play("attack")
 #	cd_throw.start()
 	var overlapping_areas = rebound_area.get_overlapping_areas()
 	if overlapping_areas:
@@ -41,7 +47,7 @@ func throw(bullet):
 	throwed_bullet_spawn = throwed_bullet_instance.instantiate()
 	throwed_bullet_spawn.get_node("Area2D/CollisionShape2D").shape = throwed_bullet_spawn.BulletData[bullet.instanced_shape]["shape"]
 	throwed_bullet_spawn.position = self.position
-	throwed_bullet_spawn.direction = self.input_dir.normalized() if self.input_dir.length() > 0 else Vector2.RIGHT
+	throwed_bullet_spawn.direction = self.input_dir.normalized() if self.input_dir.length() > 0 else Vector2.RIGHT * (-1 if self.animator.flip_h else 1)
 	throwed_bullet_spawn.look_at(self.position + throwed_bullet_spawn.direction)
 	throwed_bullet_spawn.animation = bullet.animation
 	throwed_bullet_spawn.material.set("shader_paramater/hue_shift", throwed_bullet_spawn.ColorShift[bullet.instanced_color])
@@ -64,3 +70,8 @@ func throw(bullet):
 #	query.shape = BulletData[shape]["shape"]
 	has_bullet = false
 	pass
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if(animator.animation == "attack"):
+		animator.play("idle")
