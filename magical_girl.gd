@@ -14,10 +14,10 @@ func _input(event):
 
 
 func new_attack(index):
-	print("INDEX:             " + str(index))
-	if index <= 9:
+	get_parent().som_de_tiro_se_abaixa(load("res://resources/sound/sfx/menina.mp3"))
+	if index == 1:
 		bullet_controller.start_ribbon()
-	elif index <= 19:
+	elif index == 2:
 		bullet_controller.start_constellation()
-	elif index <= 24:
+	elif index == 0:
 		bullet_controller.start_radial()

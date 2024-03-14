@@ -84,6 +84,7 @@ func spawn_ghost_collateral():
 func start_radial():
 	_current_pattern = patterns.Radial
 	pattern_counter = 10
+	spawn_bullets_radial(25, 180)
 	_shoot_timer.start(1.0)
 
 
@@ -104,7 +105,7 @@ func _on_shoot_timer_timeout():
 	if pattern_counter >= 0: 
 		match _current_pattern:
 			patterns.Radial:
-				spawn_bullets_radial(60, 180)
+				spawn_bullets_radial(25, 180)
 			patterns.Zombie:
 				if pattern_counter > 5:
 					spawn_bullet_wall()

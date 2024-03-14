@@ -98,6 +98,7 @@ func start_constellation():
 func start_radial():
 	_current_pattern = patterns.Radial
 	pattern_counter = 10
+	spawn_bullets_radial(25, 180)
 	_shoot_timer.start(1.0)
 
 func start_ribbon():
@@ -119,7 +120,7 @@ func _on_shoot_timer_timeout():
 					spawn_bullets_radial(64, 64)
 				spawn_constellation(64, 64)
 			patterns.Radial:
-				spawn_bullets_radial(60, 180)
+				spawn_bullets_radial(24, 180)
 			patterns.Ribbon:
 				if pattern_counter % 5 == 0:
 					spawn_bullets_radial(16, 60, Vector2.RIGHT.rotated(deg_to_rad(randi_range(-10, 10))))
