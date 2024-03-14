@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5bnlhv0j618"
-path="res://.godot/imported/Fundo Fundo.png-e9020b3ec4bd45785e02df822e6c3b12.ctex"
+uid="uid://b7f7s7bjmy5se"
+path="res://.godot/imported/pixel.png-33fdff2f0d6b4058cdb2ee40ad421cba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/background/Fundo Fundo.png"
-dest_files=["res://.godot/imported/Fundo Fundo.png-e9020b3ec4bd45785e02df822e6c3b12.ctex"]
+source_file="res://addons/scene_manager/shader_patterns/pixel.png"
+dest_files=["res://.godot/imported/pixel.png-33fdff2f0d6b4058cdb2ee40ad421cba.ctex"]
 
 [params]
 
@@ -30,5 +30,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=2560
+process/size_limit=0
 detect_3d/compress_to=1

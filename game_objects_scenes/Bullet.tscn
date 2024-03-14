@@ -5,8 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://t4h06cmxkdhn" path="res://resources/bullet_animations.tres" id="2_llufq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgj6o"]
-resource_local_to_scene = true
-shader = ExtResource("1_4jdtm")
+shader = ExtResource("1_l7pfn")
 shader_parameter/sprite_sheet_rows = 1
 shader_parameter/is_negative = false
 shader_parameter/hue_shift = 0.667

@@ -1,7 +1,8 @@
 extends Node
 
 class_name BulletPool
-var _bullet_scene = preload("res://resources/Bullet.tscn")
+var _bullet_scene = preload("res://game_objects_scenes/Bullet.tscn")
+
 var _pool_size = 4096
 var _pool = []
 var _index = 0

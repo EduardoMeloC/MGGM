@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cquew6n7yc7b"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_3abx5"]
-[ext_resource type="Texture2D" uid="uid://dxtn5iou2mc2y" path="res://sprites/player.png" id="2_pcpnj"]
+[ext_resource type="Script" path="res://player.gd" id="1_1mop3"]
+[ext_resource type="Texture2D" uid="uid://dxtn5iou2mc2y" path="res://sprites/player.png" id="2_2tqaj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ks2mf"]
 radius = 8.0
@@ -10,10 +10,10 @@ radius = 8.0
 radius = 247.164
 
 [node name="Player" type="Node2D" groups=["Player"]]
-script = ExtResource("1_3abx5")
+script = ExtResource("1_1mop3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_pcpnj")
+texture = ExtResource("2_2tqaj")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
