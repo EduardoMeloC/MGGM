@@ -1,0 +1,66 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://t4h06cmxkdhn"]
+
+[ext_resource type="Texture2D" uid="uid://ckordsmwaxfrr" path="res://sprites/Bullets.png" id="1_q3r26"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ci5j1"]
+atlas = ExtResource("1_q3r26")
+region = Rect2(0, 0, 81, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmtxn"]
+atlas = ExtResource("1_q3r26")
+region = Rect2(255, 0, 85, 117)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhr35"]
+atlas = ExtResource("1_q3r26")
+region = Rect2(340, 0, 85, 117)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wybwu"]
+atlas = ExtResource("1_q3r26")
+region = Rect2(85, 0, 85, 117)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_js8xq"]
+atlas = ExtResource("1_q3r26")
+region = Rect2(170, 0, 85, 117)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ci5j1")
+}],
+"loop": true,
+"name": &"big",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmtxn")
+}],
+"loop": true,
+"name": &"capsule",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhr35")
+}],
+"loop": true,
+"name": &"circle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wybwu")
+}],
+"loop": true,
+"name": &"double",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_js8xq")
+}],
+"loop": true,
+"name": &"rectangle",
+"speed": 5.0
+}]

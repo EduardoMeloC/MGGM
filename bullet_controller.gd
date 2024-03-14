@@ -34,6 +34,8 @@ var _current_pattern := patterns.Constellation
 var pattern_counter := 0
 var theta = 0.0
 var alpha := 1.3 #range = (0, 2*PI)
+var rng = RandomNumberGenerator.new()
+var rebound_chance : float = 0.05
 
 func _draw():
 	if Engine.is_editor_hint():
@@ -43,27 +45,26 @@ func _draw():
 			var dir = Vector2(cos(angle_step*i), sin(angle_step*i))
 			draw_circle(dir*_debug_radius, 3, Color.WHITE)
 
-
 func spawn_bullets_radial(bullet_count: int, shoot_radius: int, initial_direction:= Vector2.ZERO):
 	var player_direction = (_player.position - self.global_position).normalized() 
 	var direction = player_direction if initial_direction == Vector2.ZERO else initial_direction
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	for i in range(-bullet_count/2, bullet_count/2):
 		var dir = direction.rotated(i*angle_step).normalized()
-		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "red")
+		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "red") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, dir, Globals.BulletShape.circle, "red", true)
 
 func spawn_bullets_faster(bullet_count: int, shoot_radius: int):
 	var player_direction = (_player.position - self.global_position).normalized() 
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	for i in range(-bullet_count/2, bullet_count/2+1):
 		var dir = player_direction.rotated(i*angle_step).normalized()
-		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)
+		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir)  if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, dir, true)
 		bullet.set_calculate_next_step(func(delta : float):
 			return bullet.direction * 1.1)
 			
 func spawn_bullets_sine(horizontal_speed: float, frequency: float, amplitude: float, speed := 400):
 	var player_direction = (_player.position - self.position).normalized() 
-	var bullet : Bullet = _pool.get_object().initialize(self.global_position, player_direction, Globals.BulletShape.capsule, "orange")
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, player_direction, Globals.BulletShape.capsule, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, player_direction, Globals.BulletShape.capsule, "orange",true)
 	bullet.set_calculate_next_step(func(delta : float):
 		var dir = Vector2(horizontal_speed, cos(bullet.time_alive*frequency)*amplitude)
 		bullet.direction = dir
@@ -93,8 +94,7 @@ func get_vector(angle):
 func spawn_constellation(shoot_radius: int, bullet_count: int):
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	var dir = get_vector(theta)
-	var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "green")
-
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "green") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, dir, Globals.BulletShape.circle, "green", true)
 
 ####attack starters
 #Essas funções só vão ser chamadas uma vez, quando a magical girl selecionar esse ataque pra jogar

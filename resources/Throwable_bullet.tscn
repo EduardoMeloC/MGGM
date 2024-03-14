@@ -1,35 +1,36 @@
-[gd_scene load_steps=11 format=3 uid="uid://bersoi4hr360j"]
+[gd_scene load_steps=11 format=3 uid="uid://dt112qylyfoco"]
 
-[ext_resource type="Shader" path="res://resources/hueshift.gdshader" id="1_4jdtm"]
-[ext_resource type="Texture2D" uid="uid://ckordsmwaxfrr" path="res://sprites/Bullets.png" id="1_6u233"]
-[ext_resource type="Script" path="res://bullet.gd" id="2_6pe18"]
+[ext_resource type="Shader" path="res://resources/hueshift.gdshader" id="1_20cin"]
+[ext_resource type="Texture2D" uid="uid://ckordsmwaxfrr" path="res://sprites/Bullets.png" id="2_5wgmj"]
+[ext_resource type="Script" path="res://bullet.gd" id="3_e53xg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fgj6o"]
 resource_local_to_scene = true
-shader = ExtResource("1_4jdtm")
+shader = ExtResource("1_20cin")
 shader_parameter/sprite_sheet_rows = 1
+shader_parameter/is_negative = false
 shader_parameter/hue_shift = 0.667
 shader_parameter/sat_mul = 1.0
 shader_parameter/val_mul = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ci5j1"]
-atlas = ExtResource("1_6u233")
+atlas = ExtResource("2_5wgmj")
 region = Rect2(0, 0, 81, 103)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmtxn"]
-atlas = ExtResource("1_6u233")
+atlas = ExtResource("2_5wgmj")
 region = Rect2(255, 0, 85, 117)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhr35"]
-atlas = ExtResource("1_6u233")
+atlas = ExtResource("2_5wgmj")
 region = Rect2(340, 0, 85, 117)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wybwu"]
-atlas = ExtResource("1_6u233")
+atlas = ExtResource("2_5wgmj")
 region = Rect2(85, 0, 85, 117)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_js8xq"]
-atlas = ExtResource("1_6u233")
+atlas = ExtResource("2_5wgmj")
 region = Rect2(170, 0, 85, 117)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0tx45"]
@@ -75,8 +76,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="BulletWithServer" type="AnimatedSprite2D"]
+[node name="BulletWithServer" type="AnimatedSprite2D" groups=["Throwable_bullet"]]
 material = SubResource("ShaderMaterial_fgj6o")
 sprite_frames = SubResource("SpriteFrames_0tx45")
-animation = &"rectangle"
-script = ExtResource("2_6pe18")
+animation = &"capsule"
+script = ExtResource("3_e53xg")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-1, -1)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
