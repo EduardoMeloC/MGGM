@@ -31,6 +31,9 @@ enum patterns {
 var _current_pattern := patterns.Radial
 var pattern_counter := 0
 
+var rng = RandomNumberGenerator.new()
+var rebound_chance : float = 0.05
+
 var ghost_parent
 
 func _draw():
@@ -48,7 +51,7 @@ func spawn_bullets_radial(bullet_count: int, shoot_radius: int, initial_directio
 	var angle_step = deg_to_rad(shoot_radius)/bullet_count
 	for i in range(-bullet_count/2, bullet_count/2):
 		var dir = direction.rotated(i*angle_step).normalized()
-		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "red")
+		var bullet : Bullet = _pool.get_object().initialize(self.global_position, dir, Globals.BulletShape.circle, "red") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, dir, Globals.BulletShape.circle, "red", true)
 		if is_faster:
 			bullet.set_calculate_next_step(func(delta : float):
 				return bullet.direction * 6.0)
@@ -58,22 +61,22 @@ func spawn_bullet_wall():
 	var intervals = DisplayServer.screen_get_size().y/20
 	for i in 10:
 		if pattern_counter%2 == 0:
-			var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals), direction, Globals.BulletShape.circle, "orange")
+			var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals), direction, Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(Vector2(1520, i*2*intervals), direction, Globals.BulletShape.circle, "orange", true) 
 		else:
-			var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals + intervals/2), direction, Globals.BulletShape.circle, "orange")
+			var bullet : Bullet = _pool.get_object().initialize(Vector2(1520, i*2*intervals + intervals/2), direction, Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(Vector2(1520, i*2*intervals + intervals/2), direction, Globals.BulletShape.circle, "orange", true)
 
 func spawn_ghost():
 	var direction = Vector2(-1, 0) #vai pra esquerda da tela
-	var bullet : Bullet = _pool.get_object().initialize(self.global_position, direction, Globals.BulletShape.circle, "blue")
+	var bullet : Bullet = _pool.get_object().initialize(self.global_position, direction, Globals.BulletShape.circle, "blue") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, direction, Globals.BulletShape.circle, "blue", true)
 	bullet.set_calculate_next_step(func(delta : float):
 		return bullet.direction * 10.0)
 	ghost_parent = bullet
-	var up_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(150.0).normalized(), Globals.BulletShape.circle, "blue")
-	var down_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(-150.0).normalized(), Globals.BulletShape.circle, "blue")
+	var up_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(150.0).normalized(), Globals.BulletShape.circle, "blue") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, direction.rotated(150.0).normalized(), Globals.BulletShape.circle, "blue", true)
+	var down_bullet : Bullet = _pool.get_object().initialize(self.global_position, direction.rotated(-150.0).normalized(), Globals.BulletShape.circle, "blue") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(self.global_position, direction.rotated(-150.0).normalized(), Globals.BulletShape.circle, "blue", true)
 
 func spawn_ghost_collateral():
-	var up_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange")
-	var down_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange")
+	var up_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(ghost_parent.global_position, Vector2(0, -1), Globals.BulletShape.circle, "orange", true)
+	var down_bullet : Bullet = _pool.get_object().initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange") if rng.randf() <= (1 - rebound_chance) else _pool.get_object(true).initialize(ghost_parent.global_position, Vector2(0, 1), Globals.BulletShape.circle, "orange", true)
 
 func _input(event):
 	var just_pressed = event.is_pressed() and not event.is_echo()
